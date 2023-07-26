@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Velha</title>
+    <link type="image/png" sizes="16x16" rel="icon" href="icons8-tic-tac-toe-16.png">
+    <script>
+        var valoresPlayer1 = []
+        var valoresPlayer2 = []
+        var cont = 1;
+
+        function alternarPlayer(n) {
+            //alert('entrou')
+            if (cont % 2 == 0) {
+                verificarPontuacao(n, valoresPlayer1, 1);
+                document.getElementById(`box${n}`).classList.add(`player${1}-icon`)
+            } else {
+                verificarPontuacao(n, valoresPlayer2, 2);
+                document.getElementById(`box${n}`).classList.add(`player${2}-icon`)
+            }
+        }
+
+        function verificarPontuacao(number, valores, numero) {
+            // if (valores[number]) {
+            //     alert("valor já existe");
+            // } else {
+
+            document.getElementById(`box${number}`).classList.add(`player${numero}-chose`)
+            document.getElementById(`box${number}`).onclick = ''
+
+            valores[number] = true;
+
+            if ((valores['1'] && valores['5'] && valores['9']) ||
+                (valores['3'] && valores['5'] && valores['7']) ||
+                (valores['2'] && valores['5'] && valores['8']) ||
+                (valores['1'] && valores['2'] && valores['3']) ||
+                (valores['4'] && valores['5'] && valores['6']) ||
+                (valores['7'] && valores['8'] && valores['9']) ||
+                (valores['1'] && valores['4'] && valores['7']) ||
+                (valores['3'] && valores['6'] && valores['9'])
+            ) {
+                setTimeout(()=>{
+                    alert(`O número ${numero} ganhou!!`)
+                    limpar()
+                },350)
+            } else if (cont == 9) {
+                alert("Empate!!!")
+                limpar()
+            }
+
+            console.log(numero)
+            console.log(valores);
+
+            cont++;
+        }
+
+        function limpar() {
+            valoresPlayer1 = []
+            valoresPlayer2 = []
+            cont = 1
+            for (let i = 1; i < 10; i++) {
+                document.getElementById(`box${i}`).classList = ''
+                document.getElementById(`box${i}`).classList.add('sub-box')
+                document.getElementById(`box${i}`).onclick = () => alternarPlayer(i);
+            }
+        }
+      //  }
+    </script>
+    <style>
+        body {
+            padding: 0px;
+            margin: 0px;
+        }
+
+        body div {
+            margin: 0px;
+            background: rgb(255, 255, 255);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+        }
+
+
+
+        div #box-jogo {
+            background-color: rgb(0, 0, 0);
+            width: 500px;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+
+        #box-jogo .line {
+            width: 100%;
+            height: 160px;
+            background-color: rgb(0, 0, 0);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .line .line-box {
+            width: 32%;
+            /* background-color: yellow; */
+            height: 100%;
+        }
+
+        .sub-box {
+            height: 65%;
+            width: 55%;
+            border-radius: 20px;
+            background-color: rgba(250, 87, 120, 0.251);
+            transition: background 0.5s;
+            cursor: pointer;
+        }
+
+        .player1-icon{
+            background-image: url(./bola.svg);
+            background-repeat: no-repeat;
+            background-size: 80%;
+            background-position: center;
+        }
+
+        .player2-icon{
+            background-image: url(./xis.svg);
+            background-repeat: no-repeat;
+            background-size: 80%;
+            background-position: center;
+        }
+
+        .sub-box:hover {
+            background-color: rgba(236, 40, 79, 0.599);
+        }
+
+        .player1-chose,
+        .player1-chose:hover {
+            background-color: rgb(231, 36, 29);
+            cursor: not-allowed;
+        }
+
+
+        .player2-chose,
+        .player2-chose:hover {
+            background-color: green;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+
+        <div id="box-jogo">
+            <div class="line">
+                <div class="line-box">
+                    <div id="box1" onclick="alternarPlayer('1')" class="sub-box"></div>
+                </div>
+                <div class="line-box">
+                    <div id="box2" onclick="alternarPlayer('2')" class="sub-box"></div>
+                </div>
+                <div class="line-box">
+                    <div id="box3" onclick="alternarPlayer('3')" class="sub-box"></div>
+                </div>
+            </div>
+            <div class="line">
+                <div class="line-box">
+                    <div id="box4" onclick="alternarPlayer('4')" class="sub-box"></div>
+                </div>
+                <div class="line-box">
+                    <div id="box5" onclick="alternarPlayer('5')" class="sub-box"></div>
+                </div>
+                <div class="line-box">
+                    <div id="box6" onclick="alternarPlayer('6')" class="sub-box"></div>
+                </div>
+            </div>
+            <div class="line">
+                <div class="line-box">
+                    <div id="box7" onclick="alternarPlayer('7')" class="sub-box"></div>
+                </div>
+                <div class="line-box">
+                    <div id="box8" onclick="alternarPlayer('8')" class="sub-box"></div>
+                </div>
+                <div class="line-box">
+                    <div id="box9" onclick="alternarPlayer('9')" class="sub-box"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
