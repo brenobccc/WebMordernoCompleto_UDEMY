@@ -7,7 +7,7 @@ function area(l, a) {
         return area;
     }
 }
-
+    
 
 console.log(area(2, 2))
 console.log(area(2))
